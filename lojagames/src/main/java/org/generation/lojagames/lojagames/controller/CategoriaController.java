@@ -20,34 +20,40 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/categorias")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+
 public class CategoriaController {
-	
+
 	@Autowired
 	private CategoriaRepository repository;
 	
 	@GetMapping
-	public ResponseEntity<List<CategoriaModel>> getAll(){
-		return ResponseEntity.ok(repository.findAll());	
+	public ResponseEntity<List<CategoriaModel>> GetAll(){
+		return ResponseEntity.ok(repository.findAll());
+	
 	}
-	@GetMapping("/{id}")
+	@PostMapping	
+	public ResponseEntity<CategoriaModel> post(@RequestBody CategoriaModel categoria){
+		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(categoria));
+	}
+	
+	@GetMapping("/{id}")	
 	public ResponseEntity<CategoriaModel> GetById(@PathVariable long id){
-	return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
+		return repository.findById(id)
+			.map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 	
 	@GetMapping("/descricao/{descricao}")
 	public ResponseEntity<List<CategoriaModel>>GetByDescricao(@PathVariable String descricao){
 		return ResponseEntity.ok(repository.findAllByDescricaoContainingIgnoreCase(descricao));
-	}
-	@PostMapping
-	public ResponseEntity<CategoriaModel> post (@RequestBody CategoriaModel categoria){
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(categoria));
-	}
+		}
+	
 	@PutMapping
-	public ResponseEntity<CategoriaModel> put (@RequestBody CategoriaModel categoria){
-	return ResponseEntity.status(HttpStatus.OK).body(repository.save(categoria));
+	public ResponseEntity<CategoriaModel> put (@RequestBody CategoriaModel descricao){
+		return ResponseEntity.status(HttpStatus.OK).body(repository.save(descricao));
 	}
+	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable long id) {
-	repository.deleteById(id);
+	public void delete(@PathVariable long id){
+		repository.deleteById(id);
 	}
-	}
+}

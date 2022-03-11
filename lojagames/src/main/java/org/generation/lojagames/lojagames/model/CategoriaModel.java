@@ -11,70 +11,32 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 @Entity
-@Table(name= "tb_categoria")
+@Table(name = "tb_categoria")
 public class CategoriaModel {
-
+	
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private long id;
-	@NotNull
-	@Size(min = 5, max = 20)
-	private String genero;
+	
 	@NotNull
 	@Size(min = 5, max = 500)
-	private String nome;
+	private String genero;
+	
 	@NotNull
-	@Size(min = 5, max = 100)
-	private double preco;
+	@Size(min = 10, max = 500)
+	private String tipo; 
+	
 	@NotNull
-	@Size(min = 5, max = 10)
-	private int versao;
-	@NotNull
-	@Size(min = 5, max = 20)
+	@Size(min = 10, max = 500)
+	private String descricao;
 	
 	@ManyToOne
 	@JsonIgnoreProperties("tb_categoria")
 	private ProdutoModel produto;
 	
-	private String descricao;
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public String getGenero() {
-		return genero;
-	}
-	public void setGenero(String genero) {
-		this.genero = genero;
-	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public double getPreco() {
-		return preco;
-	}
-	public void setPreco(double preco) {
-		this.preco = preco;
-	}
-	public int getVersao() {
-		return versao;
-	}
-	public void setVersao(int versao) {
-		this.versao = versao;
-	}
-	public String getDescricao() {
-		return descricao;
-	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+	
+	
 	public ProdutoModel getProduto() {
 		return produto;
 	}
@@ -82,5 +44,41 @@ public class CategoriaModel {
 	public void setProduto(ProdutoModel produto) {
 		this.produto = produto;
 	}
-}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
 	
+	
+	
+	
+}
